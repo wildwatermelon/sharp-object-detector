@@ -1,0 +1,8 @@
+# IDEs and editors
+.idea/*
+
+# Files
+others/*
+trained_models/*
+SS/*
+prediction/*
