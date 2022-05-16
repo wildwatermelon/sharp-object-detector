@@ -15,8 +15,7 @@ def get_args():
     parser.add_argument("--image_size", type=int, default=448, help="The common width and height for all images")
     parser.add_argument("--conf_threshold", type=float, default=0.35)
     parser.add_argument("--nms_threshold", type=float, default=0.5)
-    parser.add_argument("--test_set", type=str, default="val",
-                        help="For both VOC2007 and 2012, you could choose 3 different datasets: train, trainval and val. Additionally, for VOC2007, you could also pick the dataset name test")
+    parser.add_argument("--test_set", type=str, default="val")
     parser.add_argument("--year", type=str, default="2012", help="The year of dataset (2007 or 2012)")
     parser.add_argument("--data_path", type=str, default="../sharp_object_dataset/", help="the root folder of dataset")
     # parser.add_argument("--data_path", type=str, default="data/", help="the root folder of dataset")

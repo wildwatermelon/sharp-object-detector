@@ -14,7 +14,6 @@ def get_args():
     parser.add_argument("--test_set", type=str, default="test",
                         help="For both VOC2007 and 2012, you could choose 3 different datasets: train, trainval and val. Additionally, for VOC2007, you could also pick the dataset name test")
     parser.add_argument("--year", type=str, default="2007", help="The year of dataset (2007 or 2012)")
-    parser.add_argument("--data_path", type=str, default="data/VOCdevkit", help="the root folder of dataset")
     parser.add_argument("--pre_trained_model_type", type=str, choices=["model", "params"], default="model")
     parser.add_argument("--pre_trained_model_path", type=str, default="trained_models/whole_model_trained_yolo_voc")
     parser.add_argument("--input", type=str, default="test_videos/input.mp4")

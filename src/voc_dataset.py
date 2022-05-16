@@ -5,10 +5,9 @@ from src.data_augmentation import *
 from src.dataset_const import *
 
 class VOCDataset(Dataset):
-    def __init__(self, root_path="data/VOCdevkit", year="2007", mode="train", image_size=448, is_training = True):
-        if (mode in ["train", "val", "trainval", "test"] and year == "2007") or (
-                mode in ["train", "val", "trainval"] and year == "2012"):
-            self.data_path = os.path.join(root_path, "VOC{}".format(year))
+    def __init__(self, root_path="data/", mode="train", image_size=448, is_training = True):
+        if (mode in ["train", "val"]):
+            self.data_path = os.path.join(root_path, "sharp_object_dataset")
         id_list_path = os.path.join(self.data_path, "ImageSets/Main/{}.txt".format(mode))
         self.ids = [id.strip() for id in open(id_list_path)]
         self.classes = CLASSES
