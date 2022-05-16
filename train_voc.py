@@ -6,7 +6,6 @@ from src.voc_dataset import VOCDataset
 from src.utils import *
 from src.loss import YoloLoss
 from src.yolo_net import Yolo as Yolo
-# from src.yolo_net import Yolo2 as Yolo
 from torch.utils.tensorboard import SummaryWriter
 import shutil
 from src.dataset_const import *

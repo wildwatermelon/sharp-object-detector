@@ -6,7 +6,6 @@ import cv2
 import numpy as np
 from src.utils import *
 from src.yolo_net import Yolo as Yolo
-# from src.yolo_net import Yolo2 as Yolo
 from src.dataset_const import *
 
 def get_args():

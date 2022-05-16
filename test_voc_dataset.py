@@ -6,7 +6,6 @@ import numpy as np
 from src.utils import *
 import pickle
 from src.yolo_net import Yolo as Yolo
-# from src.yolo_net import Yolo2 as Yolo
 from src.dataset_const import *
 import json
 from src.dataset_const import *
