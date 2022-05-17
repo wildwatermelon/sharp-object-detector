@@ -6,3 +6,4 @@ others/*
 trained_models/*
 SS/*
 prediction/*
+input/*

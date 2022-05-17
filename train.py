@@ -31,6 +31,7 @@ def get_args():
     parser.add_argument("--train_set", type=str, default="train")
     parser.add_argument("--test_set", type=str, default="val")
     parser.add_argument("--year", type=str, default="2012", help="The year of dataset (2007 or 2012)")
+    #parser.add_argument("--data_path", type=str, default="../sharp_object_dataset/", help="the root folder of dataset")
     parser.add_argument("--data_path", type=str, default="data/", help="the root folder of dataset")
     parser.add_argument("--pre_trained_model_type", type=str, choices=["model", "params", "model0"], default="model")
     parser.add_argument("--pre_trained_model_path", type=str, default="trained_models/whole_model_trained_yolo_voc")
