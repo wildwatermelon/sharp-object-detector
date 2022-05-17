@@ -30,7 +30,13 @@ import eval_gt_file
 MINOVERLAP = 0.4  # default value (defined in the PASCAL VOC2012 challenge)
 GT_PATH = os.path.join(os.getcwd(), "input", "ground-truth")
 DR_PATH = os.path.join(os.getcwd(), "input", "detection-results")
+
+# insert validation images into images-optional
 IMG_PATH = os.path.join(os.getcwd(), "input", "images-optional")
+
+# copy detection-results into temp_files by classes
+is_ground_truth_to_detection_results = False
+is_wait_slower = False
 """
  throw error and exit
 """
@@ -343,24 +349,25 @@ dr_files_list = glob.glob(DR_PATH + "/*.json")
 if len(dr_files_list) == 0:
     error("Error: No detection-results files found!")
 dr_files_list.sort()
-#
-# for class_index, class_name in enumerate(gt_classes):
-#     bounding_boxes = []
-#     for dr_file in dr_files_list:
-#         detection_results_data = json.load(open(dr_file))
-#         for obj in detection_results_data:
-#             tmp_class_name = obj['class_name']
-#             confidence = obj['confidence']
-#             file_id = obj['file_id']
-#             bbox = obj['bbox']
-#             if tmp_class_name == class_name:
-#                 bounding_boxes.append(
-#                     {"confidence": confidence, "file_id": file_id, "bbox": bbox}
-#                 )
-#     # sort detection-results by decreasing confidence
-#     bounding_boxes.sort(key=lambda x: float(x["confidence"]), reverse=True)
-#     with open(TEMP_FILES_PATH + "/" + class_name + "_dr.json", "w") as outfile:
-#         json.dump(bounding_boxes, outfile)
+
+if is_ground_truth_to_detection_results:
+    for class_index, class_name in enumerate(gt_classes):
+        bounding_boxes = []
+        for dr_file in dr_files_list:
+            detection_results_data = json.load(open(dr_file))
+            for obj in detection_results_data:
+                tmp_class_name = obj['class_name']
+                confidence = obj['confidence']
+                file_id = obj['file_id']
+                bbox = obj['bbox']
+                if tmp_class_name == class_name:
+                    bounding_boxes.append(
+                        {"confidence": confidence, "file_id": file_id, "bbox": bbox}
+                    )
+        # sort detection-results by decreasing confidence
+        bounding_boxes.sort(key=lambda x: float(x["confidence"]), reverse=True)
+        with open(TEMP_FILES_PATH + "/" + class_name + "_dr.json", "w") as outfile:
+            json.dump(bounding_boxes, outfile)
 
 # """
 #  Calculate the AP for each class
@@ -374,7 +381,7 @@ with open(results_files_path + "/results.txt", "w") as results_file:
     count_true_positives = {}
 
     # override below and mAP n_classes = 1
-    gt_classes = ['aeroplane']
+    # gt_classes = ['knife','scissors(open)','scissors(close)']
 
     for class_index, class_name in enumerate(gt_classes):
         count_true_positives[class_name] = 0
@@ -600,8 +607,10 @@ with open(results_files_path + "/results.txt", "w") as results_file:
             )
             # show image
             cv2.imshow("Animation", img)
-            cv2.waitKey(20)  # show for 20 ms
-            # cv2.waitKey(10000)  # show for 10 s
+            if is_wait_slower:
+                cv2.waitKey(10000)  # show for 10 s
+            else:
+                cv2.waitKey(20)  # show for 20 ms
             # save image to results
             output_img_path = (
                 results_files_path
