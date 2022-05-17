@@ -1,0 +1,1 @@
+[{"class_name": "scissors(open)", "confidence": 0.018277453258633614, "file_id": "SOD_129", "bbox": "168 0 498 227"}, {"class_name": "knife", "confidence": 0.014430004172027111, "file_id": "SOD_129", "bbox": "179 229 488 357"}, {"class_name": "scissors(close)", "confidence": 0.011215860955417156, "file_id": "SOD_129", "bbox": "0 87 166 357"}]

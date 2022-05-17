@@ -28,8 +28,8 @@ RUN cd apex && \
     pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./
 
 WORKDIR /workspace
-COPY . yolov2-pytorch/
-RUN cd yolov2-pytorch/
+COPY . sharp-object-detector/
+RUN cd sharp-object-detector/
 
 #    && \
 #    python3 -m pip install --no-cache-dir .
