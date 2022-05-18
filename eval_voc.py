@@ -35,8 +35,8 @@ DR_PATH = os.path.join(os.getcwd(), "input", "detection-results")
 IMG_PATH = os.path.join(os.getcwd(), "input", "images-optional")
 
 # copy detection-results into temp_files by classes
-is_ground_truth_to_detection_results = False
-is_wait_slower = False
+is_ground_truth_to_detection_results = True
+is_wait_slower = True
 """
  throw error and exit
 """
@@ -608,7 +608,7 @@ with open(results_files_path + "/results.txt", "w") as results_file:
             # show image
             cv2.imshow("Animation", img)
             if is_wait_slower:
-                cv2.waitKey(10000)  # show for 10 s
+                cv2.waitKey(1000)  # show for 10 s
             else:
                 cv2.waitKey(20)  # show for 20 ms
             # save image to results
