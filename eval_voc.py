@@ -27,7 +27,8 @@ import eval_gt_file
                 (Right,Bottom)
 """
 
-MINOVERLAP = 0.4  # default value (defined in the PASCAL VOC2012 challenge)
+# MINOVERLAP = 0.4  # default value (defined in the PASCAL VOC2012 challenge)
+MINOVERLAP = 0.02
 GT_PATH = os.path.join(os.getcwd(), "input", "ground-truth")
 DR_PATH = os.path.join(os.getcwd(), "input", "detection-results")
 
