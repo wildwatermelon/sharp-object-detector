@@ -15,9 +15,9 @@ def get_args():
     parser.add_argument("--image_size", type=int, default=448, help="The common width and height for all images")
     # parser.add_argument("--conf_threshold", type=float, default=0.35)
     # parser.add_argument("--nms_threshold", type=float, default=0.5)
-    parser.add_argument("--conf_threshold", type=float, default=0.25)
-    parser.add_argument("--nms_threshold", type=float, default=0.25)
-    parser.add_argument("--test_set", type=str, default="val")
+    parser.add_argument("--conf_threshold", type=float, default=0.35)
+    parser.add_argument("--nms_threshold", type=float, default=0.35)
+    parser.add_argument("--test_set", type=str, default="test")
     parser.add_argument("--year", type=str, default="2012", help="The year of dataset (2007 or 2012)")
     parser.add_argument("--data_path", type=str, default="../sharp_object_dataset/", help="the root folder of dataset")
     # parser.add_argument("--data_path", type=str, default="data/", help="the root folder of dataset")
@@ -91,7 +91,7 @@ def test(opt):
             bounding_boxes.append(
                 {"class_name": pred[5], "confidence": pred[4], "file_id": id, "bbox": bbox}
             )
-        with open("./input/detection-results/" + id + "_dr.json", "w") as outfile:
+        with open("./input_test/detection-results/" + id + "_dr.json", "w") as outfile:
             json.dump(bounding_boxes, outfile)
         cv2.imwrite("{}/{}_prediction.jpg".format(output_folder, id), output_image)
 
