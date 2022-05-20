@@ -1,5 +1,5 @@
 # sharp-object-detector
-a sharp object detector based on YOLOv2
+A Modified YOLOv2 for Sharp Object Detection
 
 ### models
 the models can be found in model_ref.py
