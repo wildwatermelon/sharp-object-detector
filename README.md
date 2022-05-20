@@ -1,5 +1,5 @@
 # sharp-object-detector
-sharp object detector based on YOLOv2
+a sharp object detector based on YOLOv2
 
 ## credits
 yolo bootstrapped from: <br>
