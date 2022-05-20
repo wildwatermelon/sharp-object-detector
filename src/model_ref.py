@@ -97,7 +97,7 @@ class Yolo(nn.Module):
 
         return output
 
-class Yolo2(nn.Module):
+class Yolo_m1(nn.Module):
     def __init__(self, num_classes,
                  anchors=[(1.3221, 1.73145), (3.19275, 4.00944), (5.05587, 8.09892), (9.47112, 4.84053),
                           (11.2364, 10.0071)]):
@@ -204,7 +204,7 @@ class Yolo2(nn.Module):
 
         return output
 
-class Yolo3(nn.Module):
+class Yolo_m2(nn.Module):
     def __init__(self, num_classes,
                  anchors=[(1.3221, 1.73145), (3.19275, 4.00944), (5.05587, 8.09892), (9.47112, 4.84053),
                           (11.2364, 10.0071)]):

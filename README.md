@@ -1,6 +1,19 @@
 # sharp-object-detector
 a sharp object detector based on YOLOv2
 
+### models
+the models can be found in model_ref.py
+
+### tensorboard
+`tensorboard --logdir=tensorboard/yolo_voc/sharp_object_dataset`
+
+### training
+`python3 train.py --num_epoches 1000 --pre_trained_model_type model0`
+
+### evaluation
+`python test_dataset.py`
+`python eval_voc.py`
+
 ## credits
 yolo bootstrapped from: <br>
 https://github.com/uvipen/Yolo-v2-pytorch <br>
