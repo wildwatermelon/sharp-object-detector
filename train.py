@@ -183,6 +183,7 @@ def train(opt):
             writer.add_scalar('Test/Confidence_loss', te_conf_loss, epoch)
             writer.add_scalar('Test/Class_loss', te_cls_loss, epoch)
             model.train()
+            #if te_loss + opt.es_min_delta < best_loss and epoch > opt.num_epoches/5:
             if te_loss + opt.es_min_delta < best_loss:
                 best_loss = te_loss
                 best_epoch = epoch
