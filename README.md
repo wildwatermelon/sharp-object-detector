@@ -1,4 +1,8 @@
-# sharp-object-detector
+<div align="center">   
+
+# YOLOSO
+
+</div>
 A Modified YOLOv2 for Sharp Object Detection
 
 ### models
