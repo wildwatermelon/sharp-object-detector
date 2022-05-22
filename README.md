@@ -29,3 +29,6 @@ https://github.com/argusswift/YOLOv4-pytorch/ <br>
 
 labelling: <br>
 https://github.com/tzutalin/labelImg <br>
+
+feature maps: <br>
+https://ravivaishnav20.medium.com/visualizing-feature-maps-using-pytorch-12a48cd1e573 <br>
