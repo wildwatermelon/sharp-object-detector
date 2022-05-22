@@ -6,7 +6,7 @@
 A Modified YOLOv2 for Sharp Object Detection
 
 ### models
-the models can be found in model_ref.py
+all models can be found in model_ref.py
 
 ### tensorboard
 `tensorboard --logdir=tensorboard/yolo_voc/sharp_object_dataset`
@@ -18,7 +18,9 @@ the models can be found in model_ref.py
 `python test_dataset.py`
 `python eval_voc.py`
 
-## credits
+## Acknowledgement
+This project is based on the following projects. Thank you for the wonderful work.
+
 yolo bootstrapped from: <br>
 https://github.com/uvipen/Yolo-v2-pytorch <br>
 
