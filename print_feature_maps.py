@@ -20,7 +20,7 @@ def get_args():
     parser.add_argument("--nms_threshold", type=float, default=0.01)
     parser.add_argument("--pre_trained_model_type", type=str, choices=["model", "params"], default="model")
     parser.add_argument("--pre_trained_model_path", type=str, default="trained_models/whole_model_trained_yolo_voc")
-    parser.add_argument("--input", type=str, default="test_images")
+    parser.add_argument("--input", type=str, default="test_images_featuremap")
     parser.add_argument("--output", type=str, default="test_images")
 
     args = parser.parse_args()
@@ -59,29 +59,65 @@ def test(opt):
         if torch.cuda.is_available():
             data = data.cuda()
         with torch.no_grad():
-            logits = model(data)
-            predictions = post_processing(logits, opt.image_size, CLASSES, model.anchors, opt.conf_threshold,
-                                          opt.nms_threshold)
-        print(predictions)
-        if len(predictions) != 0:
-            predictions = predictions[0]
-            output_image = cv2.imread(image_path)
-            for pred in predictions:
-                xmin = int(max(pred[0] / width_ratio, 0))
-                ymin = int(max(pred[1] / height_ratio, 0))
-                xmax = int(min((pred[0] + pred[2]) / width_ratio, width))
-                ymax = int(min((pred[1] + pred[3]) / height_ratio, height))
-                color = COLORPALETTE[CLASSES.index(pred[5])]
-                cv2.rectangle(output_image, (xmin, ymin), (xmax, ymax), color, 2)
-                text_size = cv2.getTextSize(pred[5] + ' : %.2f' % pred[4], cv2.FONT_HERSHEY_PLAIN, 1, 1)[0]
-                cv2.rectangle(output_image, (xmin, ymin), (xmin + text_size[0] + 3, ymin + text_size[1] + 4), color, -1)
-                cv2.putText(
-                    output_image, pred[5] + ' : %.2f' % pred[4],
-                    (xmin, ymin + text_size[1] + 4), cv2.FONT_HERSHEY_PLAIN, 1,
-                    (255, 255, 255), 1)
-                print("Object: {}, Bounding box: ({},{}) ({},{})".format(pred[5], xmin, xmax, ymin, ymax))
-            cv2.imwrite(image_path[:-4] + "_prediction.jpg", output_image)
 
+            # start
+            model_weights = []
+            conv_layers = []
+            model_children = list(model.children())
+            counter = 0
+            for i in range(len(model_children)):
+                if type(model_children[i]) == nn.Conv2d:
+                    counter += 1
+                    model_weights.append(model_children[i].weight)
+                    conv_layers.append(model_children[i])
+                elif type(model_children[i]) == nn.Sequential:
+                    child = model_children[i][0]
+                    if type(child) == nn.Conv2d:
+                        counter += 1
+                        model_weights.append(child.weight)
+                        conv_layers.append(child)
+            print(f"Total convolution layers: {counter}")
+            print("conv_layers")
+
+            outputs = []
+            names = []
+            print(conv_layers)
+            # set conv_layer range
+            conv_layers = conv_layers[:19]
+
+            for j in range(len(conv_layers)):
+                layer = conv_layers[j]
+                if len(outputs) == 0:
+                    data2 = data
+                else:
+                    data2 = outputs[j-1]
+                print(data2.shape)
+                data2 = layer(data2)
+                outputs.append(data2)
+                names.append(str(layer))
+                # print(len(outputs))
+                #
+                # for feature_map in outputs:
+                #     print(feature_map.shape)
+
+                processed = []
+                for feature_map in outputs:
+                    feature_map = feature_map.squeeze(0)
+                    gray_scale = torch.sum(feature_map, 0)
+                    gray_scale = gray_scale / feature_map.shape[0]
+                    processed.append(gray_scale.data.cpu().numpy())
+                #for fm in processed:
+                #    print(fm.shape)
+
+                fig = plt.figure(figsize=(30, 50))
+                for i in range(len(processed)):
+                    a = fig.add_subplot(5, 4, i + 1)
+                    plt.imshow(processed[i])
+                    a.axis("off")
+                    a.set_title(names[i].split('(')[0], fontsize=30)
+                if j == len(conv_layers)-1:
+                    plt.savefig(str.format('test_feature_maps/feature_maps_{}.jpg',j), bbox_inches='tight')
+            #end
 
 if __name__ == "__main__":
     opt = get_args()
