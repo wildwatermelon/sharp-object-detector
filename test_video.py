@@ -68,11 +68,18 @@ def test(opt):
                 xmax = int(min((pred[0] + pred[2]) / width_ratio, width))
                 ymax = int(min((pred[1] + pred[3]) / height_ratio, height))
                 color = COLORPALETTE[CLASSES.index(pred[5])]
+                degree_of_danger = 0
+                if pred[5] == 'knife':
+                    degree_of_danger = 1
+                elif pred[5] == 'scissors(open)':
+                    degree_of_danger = 2
+                elif pred[5] == 'scissors(close)':
+                    degree_of_danger = 3
                 cv2.rectangle(output_image, (xmin, ymin), (xmax, ymax), color, 2)
-                text_size = cv2.getTextSize(pred[5] + ' : %.2f' % pred[4], cv2.FONT_HERSHEY_PLAIN, 3, 1)[0]
+                text_size = cv2.getTextSize(pred[5] + ' : %.2f' % pred[4] + ' Degree: '+ str(degree_of_danger), cv2.FONT_HERSHEY_PLAIN, 3, 1)[0]
                 cv2.rectangle(output_image, (xmin, ymin), (xmin + text_size[0] + 3, ymin + text_size[1] + 4), color, -1)
                 cv2.putText(
-                    output_image, pred[5] + ' : %.2f' % pred[4],
+                    output_image, pred[5] + ' : %.2f' % pred[4] + ' Degree: '+ str(degree_of_danger),
                     (xmin, ymin + text_size[1] + 4), cv2.FONT_HERSHEY_PLAIN, 3,
                     (255, 255, 255), 1)
         out.write(output_image)
