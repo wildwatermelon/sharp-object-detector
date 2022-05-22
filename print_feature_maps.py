@@ -83,7 +83,7 @@ def test(opt):
             names = []
             print(conv_layers)
             # set conv_layer range
-            conv_layers = conv_layers[:19]
+            conv_layers = conv_layers[:16]
 
             for j in range(len(conv_layers)):
                 layer = conv_layers[j]
